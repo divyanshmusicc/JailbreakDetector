@@ -1,0 +1,31 @@
+name: JBDetector
+options:
+  bundleIdPrefix: com.phantombat
+  deploymentTarget:
+    iOS: "14.0"
+
+targets:
+  JBDetector:
+    type: application
+    platform: iOS
+    sources:
+      - main.m
+      - AppDelegate.m
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.phantombat.jbdetector
+        INFOPLIST_FILE: Info.plist
+        HEADER_SEARCH_PATHS: $(SRCROOT)
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        DEVELOPMENT_TEAM: ""
+
+schemes:
+  JBDetector:
+    build:
+      targets:
+        JBDetector: all
+    run:
+      config: Release

@@ -5,7 +5,21 @@
 #include <pthread.h>
 #include <dirent.h>
 #include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 extern char**environ;
+
+// Test harness: mirror NSLog/stderr into $HOME/Documents/jbdetect.log so results
+// can be read from the device without screenshots. Runs at image load, before
+// +[NSObject initialize] fires the checks.
+__attribute__((constructor)) static void gh_log_redirect(void) {
+    const char *home = getenv("HOME");
+    if (!home) return;
+    char p[PATH_MAX];
+    snprintf(p, sizeof(p), "%s/Documents/jbdetect.log", home);
+    if (freopen(p, "w", stderr)) setvbuf(stderr, NULL, _IONBF, 0);
+}
 
 //Don't try to patch/hook me, it's a Kids's trick!
 
